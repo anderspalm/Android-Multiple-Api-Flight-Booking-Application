@@ -11,8 +11,10 @@ Background:
 Some people find that they want to be adventurous and go about travelling across the globe. What better than to have the computer choose for you.
 
 Goals:
-Learn if users really would like to have their travel destination choices out of their control and how they would want this experience to be developed.
-Research Questions
+Learn if users really would like to have their travel destination choices out of their control 
+Learn how they would want this experience to be developed.
+
+Research Questions:
 Do you think you are spontaneous enough to let a computer choose your travel destination?
 Would you like to see a collection of chosen destinations from which to choose?
 Do you think you would be comfortable doing this on an app?
