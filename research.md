@@ -81,6 +81,10 @@ Bob Smith 25
 
 •	Being a global traveler as a child Bob has experiences travelling alone and it does not bother him, he actually is thrilled at the possibility of encountering new cultures first hand.
 
+•	Avid app user, explained that he uses travel apps to glance over information about a location
+
+•	Only uses an app if the UI is easy to navigate
+
 •	Researches regularly holiday sites he would like to visit
 
 
