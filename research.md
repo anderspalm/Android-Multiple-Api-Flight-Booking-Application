@@ -1,17 +1,22 @@
 Title: Answers viewing application
 
+
 Authors: Me
 
+
 Date: 8/23/2016
+
 
 Background:
 
 Some people find that they want to be adventurous and go about travelling across the globe. What better than to have the computer choose for you.
 
+
 Goals:
 
 Learn if users really would like to have their travel destination choices out of their control 
 Learn how they would want this experience to be developed.
+
 
 Research Questions:
 
@@ -22,10 +27,12 @@ Where do you currently go on holiday?
 Have there been any proven practical implications?
 Are there people spontaneous enough for this?
 
+
 Methedology:
 
 I will send out an online questionnaire to be completed by tomorrow afternoon. 
 I will look online for implications of this idea
+
 
 Participants:
 
