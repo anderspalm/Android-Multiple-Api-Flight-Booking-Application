@@ -63,7 +63,7 @@ Rosario Delgado 65
 •	I used to travel with friends, my spouse or myself but I do like the option and not being forced to choose one or the other.
 •	Your generation with little ties to weigh you down would be best to use this idea
 
-Name N/A age N/A
+Name N/A age N/A /n
 •	Avid planner
 •	Does not like change in plans
 •	Would not like to take the risk of being presented with a destination that does not appeal especially if you saved up money to splurge on a big holiday and it was an unfavorable destination.
