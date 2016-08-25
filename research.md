@@ -14,8 +14,9 @@ Some people find that they want to be adventurous and go about travelling across
 
 Goals:
 
-Learn if users really would like to have their travel destination choices out of their control 
-Learn how they would want this experience to be developed.
+•	Learn if users really would like to have their travel destination choices out of their control 
+
+•	Learn how they would want this experience to be developed.
 
 
 Research Questions:
