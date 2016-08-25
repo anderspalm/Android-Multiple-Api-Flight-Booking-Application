@@ -93,6 +93,7 @@ Rosario Delgado 65
 •	Your generation with little ties to weigh you down would be best to use this idea
 
 Name N/A age N/A
+
 •	Avid planner
 
 •	Does not like change in plans
@@ -100,6 +101,7 @@ Name N/A age N/A
 •	Would not like to take the risk of being presented with a destination that does not appeal especially if you saved up money to splurge on a big holiday and it was an unfavorable destination.
 
 Name N/A age N/A
+
 •	Always up to travel
 
 •	Does not mind travelling alone
@@ -107,11 +109,14 @@ Name N/A age N/A
 •	Depends on the destination but on the most part I would accept the answer
 
 Name N/A age N/A
+
 •	The person is a seasoned traveler
 
 •	Savvy
 
 •	Flexible with change and can’t be easily flustered 
+
+<!---->
 
 Problem Statement:
 
