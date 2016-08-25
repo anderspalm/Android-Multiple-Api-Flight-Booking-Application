@@ -81,6 +81,9 @@ Bob Smith 25
 
 •	Being a global traveler as a child Bob has experiences travelling alone and it does not bother him, he actually is thrilled at the possibility of encountering new cultures first hand.
 
+•	Researches regularly holiday sites he would like to visit
+
+
 •	Bob does have a limited budget to work with so he would like to have an option of price ranges as he can’t afford $2000 or $3000 tickets.
 
 Rosario Delgado 65
