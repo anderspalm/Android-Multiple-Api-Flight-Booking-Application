@@ -84,9 +84,11 @@ Name N/A age N/A
 •	Flexible with change and can’t be easily flustered 
 
 Problem Statement:
+
 People who like to be spontaneous and travel the world but are constantly on the go don’t have access to a travel roulette app.
 
 Features:
+
 An activity with filters for your timeframe, number of people and budget
 A second activity displaying the result(s) in a card view with a picture and description, along with flight options
 A checkout option to purchase the item.
