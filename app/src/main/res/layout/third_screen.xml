@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2323">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.ander.travelapp.MainActivity">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/cardview_destination"
+            android:background="#232323"
+            android:elevation="10dp"
+            android:padding="10dp"
+            android:text="Let your Luck run..."
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:text="Toggle Me..."
+                android:textStyle="bold" />
+        </android.support.v7.widget.CardView>
+
+        <ImageButton
+            android:id="@+id/api_call"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:background="#00000000"
+            android:src="@mipmap/ic_launcher"
+            android:text="API CALL" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/region_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#232323"
+                android:elevation="10dp"
+                android:padding="10dp"
+                android:text="Destination Region"
+                android:textAlignment="center"
+                android:textColor="#1E88E5"
+                android:textSize="20sp" />
+
+
+            <android.support.v7.widget.CardView
+                android:id="@id/cardview_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp">
+
+                <ImageView
+                    android:id="@+id/destination_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="#00000000"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/london_eye_night" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="20dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="0px"
+                            android:layout_weight="0.25"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                style="@style/Base.TextAppearance.AppCompat.Caption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Destination:"
+                                android:textColor="#fff"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/country"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Country"
+                                android:textColor="#fff"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="0px"
+                            android:layout_weight="0.25"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/destinations"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="A --> B"
+                                android:textColor="#fff"
+                                android:textSize="15dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="0px"
+                            android:layout_weight="0.25"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Base.TextAppearance.AppCompat.Caption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Origin:"
+                                android:textColor="#fff"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/outbound"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12/24/2016"
+                                android:textColor="#fff" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="0px"
+                            android:layout_weight="0.25"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Base.TextAppearance.AppCompat.Caption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Destination:"
+                                android:textColor="#fff"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/inbound"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="12/30/2016"
+                                android:textColor="#fff" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/price_cardview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="10dp"
+                            android:elevation="11dp"
+                            android:text="Starting at $433.00"
+                            android:textColor="#fff"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+            <Button
+                android:id="@+id/toFlightOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="#1E88E5"
+                android:elevation="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Flight options   -->"
+                android:textColor="#232323"
+                android:textSize="15sp"
+                android:alpha="0.7"/>
+        </LinearLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="City Sights"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:background="#232323"
+                    android:textColor="#1E88E5"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0px"
+                        android:layout_weight="0.5"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0px"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5">
+
+                            <ImageView
+                                android:id="@+id/city_img_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/london_eye_night" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0px"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5">
+
+                            <ImageView
+                                android:id="@+id/city_img_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/london_eye_night" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/city_img_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0px"
+                        android:layout_weight="0.5"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/london_eye_night" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#00000000">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="About the destination"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="#232323"
+                android:textColor="#1E88E5"/>
+
+            <TextView
+                android:id="@+id/city_blurb"
+                android:text="@string/blurb"
+                android:background="#00000000"
+                android:letterSpacing=".1"
+                android:layout_margin="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+</ScrollView>
