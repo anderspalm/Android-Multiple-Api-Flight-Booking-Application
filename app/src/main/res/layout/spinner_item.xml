@@ -1,31 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView
+    android:text="item"
+    android:padding="10dp"
+    android:id="@+id/airport_spinner_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-    <TextView
-        android:text="item"
-        android:padding="10dp"
-        android:id="@+id/airport_spinner_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="50"
-        android:background="#00000000"
-        android:gravity="center"
-        android:paddingLeft="40dp"
-        android:popupBackground="@color/cardview_light_background"
-        style="@style/Widget.AppCompat.TextView.SpinnerItem"/>
-
-    </LinearLayout>
-
-</android.support.v7.widget.CardView>
+    android:layout_gravity="center"
+    android:layout_weight="50"
+    android:gravity="center"
+    android:paddingLeft="40dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

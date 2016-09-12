@@ -1,19 +1,7 @@
 <resources>
     <string name="app_name">TravelApp</string>
     <string name="title_activity_fourth_screen">FourthScreen</string>
-    <string name="blurb">Moonfish loach catfish Blacksmelt eucla cod tui chub hammerhead shark coley hamlet
-        redtooth triggerfish surgeonfish. Pricklefish bluefish hog sucker Redhorse sucker naked-back knifefish
-        beaked salmon trumpetfish; duckbilled barracudina. Shrimpfish northern squawfish goldspotted killifish
-        dragon goby barbelless catfish nurse shark plaice. Dragon goby parrotfish common tunny halosaur Lost River
-        sucker summer flounder tilapia: wallago whale shark chum salmon Sundaland noodlefish?
-        Giant sea bass gray eel-catfish Long-finned sand diver zebra lionfish. Cutthroat eel tapetail bleak pink salmon
-        mudsucker powen river shark largenose fish threadfin largenose fish zebra bullhead shark. Denticle herring.
-        Rough scad, bala shark, slender snipe eel. Flounder flagblenny grideye menhaden rivuline stargazer gombessa
-        Pacific hake silver hake flagtail, sea bass porbeagle shark: powen Black tetra swordtail pomfret, "four-eyed
-        fish scaly dragonfish sand goby." Trumpetfish eelblenny goldfish, pencil catfish saber-toothed blenny delta s
-        melt Atlantic eel. Rough scad longfin dragonfish; sarcastic fringehead; sculpin dorab aruana, atka mackerel
-        pineconefish mudsucker. Salamanderfish, "lefteye flounder tench, false brotula; dace." Climbing perch Arctic char, "
-        stingfish: snubnose eel Bombay duck Sacramento splittail king-of-the-salmon knifejaw lanternfish butterfly ray,"
-        goby Russian sturgeon Manta Ray. Walleye ide sand lance yellow-eye mullet Black scabbardfish, codlet round herring;
-        spotted dogfish. King-of-the-salmon sand tiger swordfish Asian carps driftfish Pacific lamprey Lost River sucker boxfish opah sunfish, rough scad.</string>
+    <string name="blurb">From time to time, archaeologists and historians locate evidence—a swampy, prehistoric city in coastal Spain; a suspicious undersea rock formation in the Bahamas—that might be a source of the Atlantis story. Of these, the site with the widest acceptance is the Greek island of Santorini (ancient Thera), a half-submerged caldera created by the massive second-millennium-B.C. volcanic eruption whose tsunami may have hastened the collapse of the Minoan civilization on Crete.</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

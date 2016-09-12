@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/information_page"
+        android:icon="@drawable/ic_navigate_before_black_24dp"
+        android:title="Home">
+    </item>
+    <item
+        android:id="@+id/more_photos"
+        android:icon="@drawable/ic_navigate_before_black_24dp"
+        android:title="photos">
+    </item>
+    <item
+        android:id="@+id/booking_page"
+        android:icon="@drawable/ic_navigate_before_black_24dp"
+        android:title="Options">
+    </item>
+
+
+</menu>
