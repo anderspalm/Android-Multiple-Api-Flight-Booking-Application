@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bb_darkBackgroundColor">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/nav_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:alpha="0.9">
-    </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:text="Search The Area"
-        android:gravity="center"
-        android:letterSpacing=".1"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/Photo_galleryRV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/no_results_poster"
-        android:visibility="invisible"
-        android:background="@color/pinkHighlight"
+        android:src="@drawable/atlantis_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.9"
+            android:background="@color/white">
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:letterSpacing=".1"
+            android:text="Search The Area"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/Photo_galleryRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/no_results_poster"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/pinkHighlight"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+</FrameLayout>

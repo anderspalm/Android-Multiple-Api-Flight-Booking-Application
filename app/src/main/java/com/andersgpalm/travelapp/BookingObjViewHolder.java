@@ -26,10 +26,8 @@ public class BookingObjViewHolder extends RecyclerView.ViewHolder {
         mOriginCity = (TextView) itemView.findViewById(R.id.origin_city);
         mDestinedAirportName = (TextView) itemView.findViewById(R.id.destined_airport_name);
         mOriginCountry = (TextView) itemView.findViewById(R.id.origin_country);
-        mDestinationCode = (TextView) itemView.findViewById(R.id.destination_code);
+//        mDestinationCode = (TextView) itemView.findViewById(R.id.destination_code);
         mPrice = (TextView) itemView.findViewById(R.id.agent_price);
-        mOutDate = (TextView) itemView.findViewById(R.id.out_date);
-        mInDate = (TextView) itemView.findViewById(R.id.in_date);
         mDestinedCountry = (TextView) itemView.findViewById(R.id.destined_country);
         mAgentPic = (ImageView) itemView.findViewById(R.id.agent_pic);
         mWebView = (Button) itemView.findViewById(R.id.purchase);

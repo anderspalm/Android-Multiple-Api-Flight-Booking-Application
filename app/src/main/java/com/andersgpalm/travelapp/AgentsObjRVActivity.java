@@ -9,10 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class AgentsObjRVActivity extends AppCompatActivity {
 
     Context mContext;
+    TextView mOutDate, mInDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,16 @@ public class AgentsObjRVActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.booking_items_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AgentsObjRVActivity.this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        BookingObjRVAdapter arrayAdapter = new BookingObjRVAdapter(AgentsObjRVActivity.this);
+
+        mOutDate = (TextView) findViewById(R.id.out_date_agent);
+        mInDate = (TextView) findViewById(R.id.in_date_agent);
+
+        ArrayList<BookingObj> arrayList = (ArrayList<BookingObj>) MasterListSingleton.getInstance().getAllBookingObjs();
+        if (arrayList != null && arrayList.size() > 0) {
+            mOutDate.setText(arrayList.get(0).getmOutboundDate());
+            mInDate.setText(arrayList.get(0).getmInboundDate());
+        }
+        BookingObjRVAdapter arrayAdapter = new BookingObjRVAdapter(AgentsObjRVActivity.this,arrayList);
         recyclerView.setAdapter(arrayAdapter);
     }
 

@@ -7,28 +7,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <DatePicker
-        android:id="@+id/outDatePicker"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/white"
-        android:visibility="gone">
-    </DatePicker>
-
-    <DatePicker
-        android:id="@+id/inDatePicker"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/white"
-        android:visibility="gone">
-    </DatePicker>
-
     <!--<android.support.v7.widget.Toolbar-->
         <!--android:id="@+id/nav_bar"-->
         <!--android:layout_width="match_parent"-->
@@ -48,6 +26,26 @@
             android:scaleType="centerCrop"
             android:src="@drawable/hyde_park" />
 
+        <DatePicker
+            android:id="@+id/outDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:elevation="20dp"
+            android:background="@color/white"
+            android:visibility="gone">
+        </DatePicker>
+
+        <DatePicker
+            android:id="@+id/inDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:elevation="20dp"
+            android:background="@color/white"
+            android:visibility="gone">
+        </DatePicker>
+
         <LinearLayout
             android:id="@+id/spinner_buttons"
             android:layout_width="match_parent"
@@ -60,7 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0px"
                 android:layout_marginTop="15dp"
-                android:layout_weight=".25">
+                android:layout_weight=".25"
+                android:alpha=".95">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -81,7 +80,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0px"
                 android:layout_marginTop="15dp"
-                android:layout_weight=".25">
+                android:layout_weight=".25"
+                android:alpha=".95">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -132,7 +132,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0px"
                 android:layout_marginTop="15dp"
-                android:layout_weight=".2">
+                android:layout_weight=".2"
+                android:alpha=".95">
 
                 <TextView
                     android:layout_width="match_parent"

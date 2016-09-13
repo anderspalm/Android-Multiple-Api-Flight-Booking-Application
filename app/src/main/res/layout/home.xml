@@ -54,7 +54,7 @@
                         android:id="@+id/filters_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:id="@+id/filters_container"
@@ -96,8 +96,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:layout_gravity="center"
-                                android:weightSum="1">
+                                android:layout_gravity="center">
 
 
                                 <LinearLayout
@@ -109,37 +108,37 @@
 
                                         <EditText
                                             android:id="@+id/code_edit"
+                                            android:layout_marginRight="30dp"
                                             android:layout_width="100dp"
                                             android:layout_height="match_parent"
                                             android:cursorVisible="false"
                                             android:textSize="14sp"
                                             android:hint="origin IATA"
-                                            android:textAlignment="center"
-                                            android:layout_marginRight="10dp"/>
+                                            android:textAlignment="center"/>
 
                                     <RelativeLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="50dp"
-                                        android:layout_marginLeft="10dp">
+                                        android:layout_marginLeft="30dp">
 
                                         <TextView
                                             android:text="Origin"
                                             android:gravity="center"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:background="@drawable/spinner_border_empty"/>
+                                            android:elevation="1dp"
+                                            android:background="@drawable/spinner_border_dark_blue"/>
 
                                         <android.support.v7.widget.AppCompatSpinner
                                             android:id="@+id/airport_spinner"
                                             android:layout_width="100dp"
                                             android:layout_height="50dp"
-                                            android:layout_centerInParent="true"
-                                            android:fadingEdge="vertical"
                                             android:paddingBottom="5dp"
-                                            android:paddingLeft="15dp"
-                                            android:paddingRight="15dp"
+                                            android:paddingLeft="5dp"
+                                            android:paddingRight="5dp"
                                             android:paddingTop="5dp"
-                                            android:spinnerMode="dialog">
+                                            android:spinnerMode="dropdown"
+                                            app:theme="@style/Platform.Widget.AppCompat.Spinner">
                                         </android.support.v7.widget.AppCompatSpinner>
                                     </RelativeLayout>
                                 </LinearLayout>
@@ -150,19 +149,18 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:layout_gravity="center"
-                                android:weightSum="1">
+                                android:layout_margin="10dp">
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:orientation="horizontal"
-                                    android:layout_margin="10dp">
+                                    android:orientation="horizontal">
 
 
                                     <RelativeLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="50dp"
-                                        android:layout_margin="5dp">
+                                        android:layout_marginRight="30dp">
 
                                         <TextView
                                             android:text="Cabin"
@@ -170,15 +168,16 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerInParent="true"
-                                            android:background="@drawable/spinner_border_empty" />
+                                            android:elevation="1dp"
+                                            android:background="@drawable/spinner_border_dark_blue" />
 
                                         <android.support.v7.widget.AppCompatSpinner
                                             android:id="@+id/cabin_class_spinner"
                                             android:layout_width="100dp"
                                             android:layout_height="50dp"
                                             android:paddingBottom="5dp"
-                                            android:paddingLeft="15dp"
-                                            android:paddingRight="15dp"
+                                            android:paddingLeft="5dp"
+                                            android:paddingRight="5dp"
                                             android:paddingTop="5dp"
                                             android:spinnerMode="dropdown"
                                             app:theme="@style/Platform.Widget.AppCompat.Spinner">
@@ -191,7 +190,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="50dp"
                                     android:layout_gravity="center"
-                                    android:layout_margin="5dp">
+                                    android:layout_marginLeft="30dp">
 
                                     <TextView
                                         android:text="Region"
@@ -199,15 +198,16 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
-                                        android:background="@drawable/spinner_border_empty" />
+                                        android:elevation="1dp"
+                                        android:background="@drawable/spinner_border_dark_blue" />
 
                                     <android.support.v7.widget.AppCompatSpinner
                                         android:id="@+id/region_spinner"
                                         android:layout_width="100dp"
                                         android:layout_height="50dp"
                                         android:paddingBottom="5dp"
-                                        android:paddingLeft="15dp"
-                                        android:paddingRight="15dp"
+                                        android:paddingLeft="5dp"
+                                        android:paddingRight="5dp"
                                         android:paddingTop="5dp"
                                         android:spinnerMode="dropdown"
                                         app:theme="@style/Platform.Widget.AppCompat.Spinner">
@@ -224,10 +224,7 @@
                     android:id="@+id/api_call"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_alignBottom="@id/filters_container"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center"
                     android:background="#00000000"
                     android:src="@drawable/token"
                     android:text="API CALL" />
@@ -238,18 +235,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
-            <!--<android.support.v7.widget.CardView-->
-            <!--android:id="@+id/cardview_destination"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:alpha=".9"-->
-            <!--app:cardBackgroundColor="#e1e0dc"-->
-            <!--app:cardCornerRadius="10dp">-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -386,11 +371,44 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:letterSpacing=".2"
-                                android:text="Atlantis City - Atlantis"
+                                android:text="Atlantis City/Atlantis"
                                 android:textColor="#fff"
                                 android:textSize="12dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="left"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:text="Athens"
+                            android:id="@+id/origin_city_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textSize="14dp"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:letterSpacing=".2"
+                            android:text=" - "
+                            android:textColor="#fff"
+                            android:textSize="14dp" />\
+
+                        <TextView
+                            android:text="Atlantis"
+                            android:id="@+id/destined_city_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textSize="14dp"
+                            android:textColor="@color/white"/>
 
                     </LinearLayout>
 
@@ -574,16 +592,6 @@
             android:layout_marginTop="25dp"
             android:background="#55232323" />
 
-
-        <!--<android.support.v7.widget.CardView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:alpha=".9"-->
-        <!--app:cardBackgroundColor="@color/skyBlue"-->
-        <!--app:cardCornerRadius="10dp">-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -639,13 +647,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/city_img_3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="250dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/atlantis_map" />

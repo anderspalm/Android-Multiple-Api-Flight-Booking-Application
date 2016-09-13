@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:elevation="15dp"
-    app:cardCornerRadius="20dp">
+    android:alpha="0.99"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="@color/softDarkBlue">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,17 +29,32 @@
                     android:layout_height="match_parent"
                     android:gravity="left"
                     android:src="@drawable/travel" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/agent_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="10dp"
+                        android:letterSpacing=".1"
+                        android:text="$400.00"
+                        android:textColor="@color/pinkHighlight"
+                        android:textSize="15dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
 
-                <TextView
-                    android:id="@+id/agent_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:letterSpacing=".1"
-                    android:text="$400.00"
-                    android:textColor="@color/softDarkBlue"
-                    android:textSize="15dp" />
             </LinearLayout>
 
             <TextView
@@ -52,11 +67,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:elevation="1dp"
+                android:background="@color/colorPrimary"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0px"
-                    android:layout_height="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight=".3"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
@@ -65,34 +83,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
+                        android:textColor="#fff"
                         android:text="Outbound" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/app_bar_height"
                         android:layout_height="1dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#cccc"
+                        android:layout_gravity="center"
+                        android:background="@color/GumLeaf"
+                        android:textColor="#fff"
                         android:gravity="center_horizontal" />
-
-                    <TextView
-                        android:id="@+id/out_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2.5dp"
-                        android:gravity="center_horizontal"
-                        android:text="Date 00/00/00"
-                        android:textSize="15dp" />
-
 
                     <TextView
                         android:id="@+id/origin_airport_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2.5dp"
-                        android:gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:textColor="#fff"
+                        android:gravity="center"
                         android:text="From Miami Intl"
                         android:textSize="14dp" />
 
@@ -101,8 +109,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
                         <TextView
                             android:id="@+id/origin_city"
                             android:layout_width="match_parent"
@@ -110,6 +119,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="Miami FL"
+                            android:textColor="#fff"
                             android:textSize="13dp" />
 
                         <TextView
@@ -119,89 +129,60 @@
                             android:layout_margin="5dp"
                             android:gravity="center"
                             android:text="USA"
+                            android:textColor="#fff"
                             android:textSize="12dp" />
 
 
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/destined_City"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="London"
-                            android:textSize="12dp" />
-
-                        <TextView
-                            android:id="@+id/destination_code"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:layout_marginTop="2.5dp"
-                            android:gravity="center"
-                            android:text="England"
-                            android:textSize="12dp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="0px"
+
+                <TextView
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_weight=".1"
-                    android:padding="5dp"
-                    android:src="@drawable/airplane" />
+                    android:background="@color/GumLeaf"
+                    android:textColor="#fff"
+                    android:gravity="center_horizontal" />
+                <!--<ImageView-->
+                    <!--android:layout_width="0px"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight=".1"-->
+                    <!--android:src="@drawable/airplane" />-->
+
 
                 <LinearLayout
                     android:layout_width="0px"
-                    android:layout_height="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight=".3"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="#fff"
                         android:gravity="center_horizontal"
-                        android:text="Outbound" />
+                        android:text="Inbound" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/app_bar_height"
                         android:layout_height="1dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#cccc"
+                        android:layout_gravity="center"
+                        android:background="@color/GumLeaf"
+                        android:textColor="#fff"
                         android:gravity="center_horizontal" />
-
-                    <TextView
-                        android:id="@+id/in_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2.5dp"
-                        android:gravity="center_horizontal"
-                        android:text="Date 00/00/00"
-                        android:textSize="15dp" />
-
 
                     <TextView
                         android:id="@+id/destined_airport_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2.5dp"
-                        android:gravity="center_horizontal"
-                        android:text="From Miami Intl"
+                        android:layout_marginTop="15dp"
+                        android:textColor="#fff"
+                        android:gravity="center"
+                        android:text="From Heathrow Airport"
                         android:textSize="14dp" />
 
 
@@ -209,14 +190,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
                         <TextView
                             android:id="@+id/destination_city"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="London"
+                            android:gravity="center"
+                            android:text="London "
+                            android:textColor="#fff"
                             android:textSize="13dp" />
 
                         <TextView
@@ -225,39 +209,12 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:gravity="center"
-                            android:text="England"
+                            android:text="UK"
+                            android:textColor="#fff"
                             android:textSize="12dp" />
 
 
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@id/origin_city"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="Miami FL"
-                            android:textSize="12dp" />
-
-                        <TextView
-                            android:id="@id/origin_country"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:layout_marginTop="2.5dp"
-                            android:gravity="center"
-                            android:text="USA"
-                            android:textSize="12dp" />
-                    </LinearLayout>
-
 
                 </LinearLayout>
 
@@ -268,13 +225,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
-                android:background="@color/skyBlue"
+                android:background="@color/pinkHighlight"
                 android:elevation="50dp"
                 android:fontFamily="cursive"
                 android:gravity="center"
                 android:letterSpacing=".1"
                 android:text="More Details and Purchase-->"
-                android:textColor="#fff"
+                android:textColor="@color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>

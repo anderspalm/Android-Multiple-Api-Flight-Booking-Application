@@ -20,9 +20,9 @@ public class BookingObjRVAdapter extends RecyclerView.Adapter<BookingObjViewHold
     ArrayList<BookingObj> mList;
     BookingObjViewHolder BDVH;
 
-    public BookingObjRVAdapter(Context context){
+    public BookingObjRVAdapter(Context context, ArrayList<BookingObj> arrayList){
         mContext = context;
-        mList = (ArrayList<BookingObj>) MasterListSingleton.getInstance().getAllBookingObjs();
+        mList = arrayList;
     }
 
     @Override
@@ -50,13 +50,13 @@ public class BookingObjRVAdapter extends RecyclerView.Adapter<BookingObjViewHold
         BDVH.mPrice.setText(mList.get(position).getmPrice());
 
         BDVH.mDestinedAirportName.setText(mList.get(position).getdAirName());
-        BDVH.mDestinedCity.setText("From: " + mList.get(position).getmDestinedCity());
-        BDVH.mInDate.setText(mList.get(position).getmInboundDate());
+        BDVH.mDestinedCity.setText(mList.get(position).getmDestinedCity());
+//        BDVH.mInDate.setText(mList.get(position).getmInboundDate());
         BDVH.mDestinedCountry.setText(mList.get(position).getmDcountry());
 
         BDVH.mOriginAirportName.setText(mList.get(position).getoAirName());
-        BDVH.mOutDate.setText(mList.get(position).getmOutboundDate());
-        BDVH.mOriginCity.setText("From: " + mList.get(position).getmOriginCity());
+//        BDVH.mOutDate.setText(mList.get(position).getmOutboundDate());
+        BDVH.mOriginCity.setText(mList.get(position).getmOriginCity());
         BDVH.mOriginCountry.setText(mList.get(position).getmOCountry());
 
     }

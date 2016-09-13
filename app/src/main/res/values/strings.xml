@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TravelApp</string>
+    <string name="app_name">TravelRoulette</string>
     <string name="title_activity_fourth_screen">FourthScreen</string>
     <string name="blurb">From time to time, archaeologists and historians locate evidence—a swampy, prehistoric city in coastal Spain; a suspicious undersea rock formation in the Bahamas—that might be a source of the Atlantis story. Of these, the site with the widest acceptance is the Greek island of Santorini (ancient Thera), a half-submerged caldera created by the massive second-millennium-B.C. volcanic eruption whose tsunami may have hastened the collapse of the Minoan civilization on Crete.</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>

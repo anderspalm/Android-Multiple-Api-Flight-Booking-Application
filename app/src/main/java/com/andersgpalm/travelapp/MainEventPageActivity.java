@@ -47,7 +47,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Map;
-
+import java.util.Queue;
 
 /**
  * Created by anders on 9/1/2016.
@@ -116,7 +116,7 @@ public class MainEventPageActivity extends AppCompatActivity {
             Log.i(TAG, "onCreate: o" + mOutboundDate);
             Log.i(TAG, "onCreate: i" + mInboundDate);
         }
-        mRegion = "Anywhere";
+
 
         mCity_image_one = (ImageView) findViewById(R.id.city_img_1);
 
@@ -202,6 +202,10 @@ public class MainEventPageActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        if(mRegion == null ){
+            mRegion = "Anywhere";
+        }
 
         // region spinner filter button
         mRegionCount = 0;
@@ -504,11 +508,13 @@ public class MainEventPageActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if (mBookingSession == null) {
+            if (mBookingSession == null && mNoFlightCount < 5) {
                 destinationRandomizer();
                 MasterListSingleton.getInstance().clearBookingObjects();
                 SessionCreator sessionCreator = new SessionCreator();
                 sessionCreator.execute();
+                Toast.makeText(mContext,"There are no flights for your filters",Toast.LENGTH_SHORT).show();
+                mNoFlightCount = mNoFlightCount + 1;
                 cancel(true);
             } else {
                 Log.i(TAG, "onPostExecute: The session ID: " + s);
@@ -611,7 +617,7 @@ public class MainEventPageActivity extends AppCompatActivity {
                                         Log.i(TAG, "onResponse: flight outbound:" + mOutboundDate + ", Return: " + mInboundDate);
                                         Log.i(TAG, "onResponse: flight origin:" + mDestinationCountry + ", Cabin: " + mCabinClass);
                                         WikipediaInformation();
-                                        flickrImages(mDestAirportCode, mRegion);
+                                        flickrImages(mDestAirportCode, mRegion, mDestinationCountry);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -626,20 +632,29 @@ public class MainEventPageActivity extends AppCompatActivity {
                                 dCountry = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mDestAirportCode).get(1);
 
                                 String origincity, destinedCity;
-                                if (DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mDestAirportCode).size() == 3) {
-                                    // city column if exists
-                                    origincity = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mDestAirportCode).get(2);
-                                } else {
-                                    // airport name is that of the city
-                                    origincity = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mDestAirportCode).get(0);
-                                }
                                 if (DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mOriginAirportCode).size() == 3) {
                                     // city column if exists
-                                    destinedCity = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mOriginAirportCode).get(2);
+                                    origincity = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mOriginAirportCode).get(2);
                                 } else {
                                     // airport name is that of the city
-                                    destinedCity = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mOriginAirportCode).get(0);
+                                    origincity = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mOriginAirportCode).get(0);
                                 }
+
+                                if (DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mDestAirportCode).size() == 3) {
+                                    // city column if exists
+                                    destinedCity = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mDestAirportCode).get(2);
+                                } else {
+                                    // airport name is that of the city
+                                    destinedCity = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mDestAirportCode).get(0);
+                                }
+
+//                              Adding origin city
+
+                                TextView oCH = (TextView) findViewById(R.id.origin_city_home);
+                                TextView dCH = (TextView) findViewById(R.id.destined_city_home);
+
+                                oCH.setText(origincity);
+                                dCH.setText(destinedCity);
 
                                 BookingObj bookingObj = new BookingObj(
                                         mDestAirportCode, mOriginAirportCode, price, mOutboundDate,
@@ -749,10 +764,10 @@ public class MainEventPageActivity extends AppCompatActivity {
                     Type mapType = new TypeToken<Map<String, Map<String, String>>>() {
                     }.getType();
                     Map<String, Map<String, String>> map = gson.fromJson(pages.toString(), mapType);
-                    Log.i(TAG, "onResponse: my map " + map);
+//                    Log.i(TAG, "onResponse: my map " + map);
 
                     for (String key : map.keySet()) {
-                        Log.i(TAG, "onResponse: for loop key " + key);
+//                        Log.i(TAG, "onResponse: for loop key " + key);
                         innerKey = key;
                     }
 
@@ -775,11 +790,11 @@ public class MainEventPageActivity extends AppCompatActivity {
                                     TextView city_blurb1 = (TextView) findViewById(R.id.city_blurb1);
                                     TextView city_blurb2 = (TextView) findViewById(R.id.city_blurb2);
                                     if (mWikiParCount == 1) {
-                                        Log.i(TAG, "onResponse: wiki info " + i);
+//                                        Log.i(TAG, "onResponse: wiki info " + i);
                                         city_blurb1.setText(mWikiExtract.substring(0, i - 2));
                                         lastNum = i;
                                     } else {
-                                        Log.i(TAG, "onResponse: wiki " + lastNum);
+//                                        Log.i(TAG, "onResponse: wiki " + lastNum);
                                         city_blurb2.setText(mWikiExtract.substring(lastNum, i - 2));
                                     }
                                     mWikiParCount = mWikiParCount + 1;
@@ -803,7 +818,7 @@ public class MainEventPageActivity extends AppCompatActivity {
     }
 
 
-    public void flickrImages(String destination, String region) {
+    public void flickrImages(String destination, String region, String country) {
 
         Log.i(TAG, "flickrImages: I'm in");
 
@@ -819,13 +834,13 @@ public class MainEventPageActivity extends AppCompatActivity {
 
         String encodedCity = city.replaceAll(" ", "_");
         Log.i(TAG, "flickrImages: " + "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=" +
-                ApiClass.flickrApi + "&text=" + encodedCity + "&format=json");
+                ApiClass.flickrApi + "&tags=" + country + "&text=" + encodedCity + "&format=json");
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(MainEventPageActivity.this);
         JsonObjectRequest job = new JsonObjectRequest(Request.Method.GET,
                 "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=" +
-                        ApiClass.flickrApi + "&tags=landmark&text=" + encodedCity + "&format=json&nojsoncallback=1",
+                        ApiClass.flickrApi + "&tags=" + country + "&text=" + encodedCity + "&format=json&nojsoncallback=1",
 //                "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=9cb129c9deed6c950fbd3e3e54bb462b&text=Trondheim&format=json&nojsoncallback=1",
 //                "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=89a4669c0553d3d254b50803bff8f692&tags=landmark&text=London&format=json&nojsoncallback=1"
 
@@ -849,10 +864,10 @@ public class MainEventPageActivity extends AppCompatActivity {
                                 int farm = items.getInt("farm");
                                 String server = items.getString("server");
 
-                                Log.i(TAG, "onResponse: id " + i + ": " + id);
-                                Log.i(TAG, "onResponse: secret " + i + ": " + secret);
-                                Log.i(TAG, "onResponse: farm " + i + ": " + farm);
-                                Log.i(TAG, "onResponse: server " + i + ": " + server);
+//                                Log.i(TAG, "onResponse: id " + i + ": " + id);
+//                                Log.i(TAG, "onResponse: secret " + i + ": " + secret);
+//                                Log.i(TAG, "onResponse: farm " + i + ": " + farm);
+//                                Log.i(TAG, "onResponse: server " + i + ": " + server);
 
                                 ImageView city_image_two = (ImageView) findViewById(R.id.city_img_2);
                                 ImageView city_image_three = (ImageView) findViewById(R.id.city_img_3);
@@ -860,7 +875,7 @@ public class MainEventPageActivity extends AppCompatActivity {
                                 switch (i) {
                                     case 1:
                                         Picasso.with(MainEventPageActivity.this)
-                                                .load("https://farm" +
+                                                .load("http://farm" +
                                                         farm +
                                                         ".staticflickr.com/" +
                                                         server + "/" +
@@ -879,7 +894,7 @@ public class MainEventPageActivity extends AppCompatActivity {
 
                                                     }
                                                 });
-                                        Log.i(TAG, "onResponse: " + "https://farm" +
+                                        Log.i(TAG, "onResponse: " + "http://farm" +
                                                 farm +
                                                 ".staticflickr.com/" +
                                                 server + "/" +
@@ -908,7 +923,7 @@ public class MainEventPageActivity extends AppCompatActivity {
                                                     }
                                                 });
 
-                                        Log.i(TAG, "onResponse: " + "https://farm" +
+                                        Log.i(TAG, "onResponse: " + "http://farm" +
                                                 farm +
                                                 ".staticflickr.com/" +
                                                 server + "/" +
@@ -975,7 +990,7 @@ public class MainEventPageActivity extends AppCompatActivity {
 
         JsonObjectRequest job2 = new JsonObjectRequest(Request.Method.GET,
                 "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=" +
-                        ApiClass.flickrApi + "&text=" + region +  "&tags=" + region + "&format=json&nojsoncallback=1",
+                        ApiClass.flickrApi + "&text=" + region +  "&tags=landmark&format=json&nojsoncallback=1",
 //                "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=9cb129c9deed6c950fbd3e3e54bb462b&text=Trondheim&format=json&nojsoncallback=1",
 //                "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=89a4669c0553d3d254b50803bff8f692&tags=landmark&text=London&format=json&nojsoncallback=1"
 
@@ -1000,7 +1015,7 @@ public class MainEventPageActivity extends AppCompatActivity {
                             ImageView city_photo = (ImageView) findViewById(R.id.region_photo);
 
                             Picasso.with(MainEventPageActivity.this)
-                                    .load("https://farm" +
+                                    .load("http://farm" +
                                             farm +
                                             ".staticflickr.com/" +
                                             server + "/" +
@@ -1017,12 +1032,12 @@ public class MainEventPageActivity extends AppCompatActivity {
 
                                         }
                                     });
-                            Log.i(TAG, "onResponse: " + "https://farm" +
-                                    farm +
-                                    ".staticflickr.com/" +
-                                    server + "/" +
-                                    id + "_" +
-                                    secret + ".jpg");
+//                            Log.i(TAG, "onResponse: " + "https://farm" +
+//                                    farm +
+//                                    ".staticflickr.com/" +
+//                                    server + "/" +
+//                                    id + "_" +
+//                                    secret + ".jpg");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -1032,11 +1047,26 @@ public class MainEventPageActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "onErrorResponse: ");
+//                Log.i(TAG, "onErrorResponse: ");
                 error.printStackTrace();
             }
         });
         requestQueue.add(job2);
+    }
+
+
+    public void flickrWoeId(){
+//
+//        make this call to get the woe id
+//        https://api.flickr.com/services/rest/?method=flickr.places.find
+        // &api_key=ba22e63bdc81558e733c75a1e30e168a
+        // &query=London&format=json&nojsoncallback=1
+        // &auth_token=72157672686455202-b7f9031c67576e73&api_sig=33528d25b45a2e6b2800924915201bed
+//                then
+//                        redo other flicker api to add woe id parameter and bug will be fixed
+//        flickrImages();
+
+
     }
 
     @Override

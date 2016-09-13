@@ -20,6 +20,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<PhotosViewHo
     private static final String TAG = "RegionRecyclerViewAd";
     List<ImageGalleryObj> mPhotoSet;
     Context mContext;
+    int mPosition;
 
     public PhotosRecyclerViewAdapter(Context context) {
         mContext = context;
@@ -34,20 +35,19 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<PhotosViewHo
     }
 
     @Override
-    public void onBindViewHolder(final PhotosViewHolder holder, final int position) {
+    public void onBindViewHolder(final PhotosViewHolder holder, int position) {
 
-        holder.mPhotoTitle.setText(mPhotoSet.get(position).getTitle());
-
-
+        mPosition = position;
+        holder.mPhotoTitle.setText(mPhotoSet.get(mPosition).getTitle());
 
 
         Picasso.with(mContext)
                 .load("https://farm" +
-                        mPhotoSet.get(position).getFarm() +
+                        mPhotoSet.get(mPosition).getFarm() +
                         ".staticflickr.com/" +
-                        mPhotoSet.get(position).getServer() + "/" +
-                        mPhotoSet.get(position).getId() + "_" +
-                        mPhotoSet.get(position).getSecret() + ".jpg")
+                        mPhotoSet.get(mPosition).getServer() + "/" +
+                        mPhotoSet.get(mPosition).getId() + "_" +
+                        mPhotoSet.get(mPosition).getSecret() + ".jpg")
                 .fit()
                 .into(holder.mPhoto);
 

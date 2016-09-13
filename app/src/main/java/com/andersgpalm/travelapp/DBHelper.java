@@ -323,8 +323,15 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<String> getCityAndCountry(String code){
-        Log.i(TAG, "getCityAndCountry: " + code);
-        String minusSkyCode = code.substring(0,code.length() - 5);
+        String minusSkyCode;
+        Log.i(TAG, "getCityAndCountry: " + code.substring(code.length()-3, code.length()));
+        Log.i(TAG, "getCityAndCountry: " + code.substring(0, code.length() - 4));
+//        if(code.substring(code.length()-3, code.length()) == "sky") {
+            minusSkyCode = code.substring(0, code.length() - 4);
+//        }
+//        else{
+//            minusSkyCode = code;
+//        }
         ArrayList arrayList = new ArrayList();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(
@@ -332,11 +339,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 " FROM " + AIRPORT_TABLE +
                 " WHERE " + AIRPORT_CODE + " like " + "'%" +minusSkyCode + "%'"
                 ,null);
-        cursor.moveToFirst();
-        arrayList.add(cursor.getString(cursor.getColumnIndex(AIRPORT_NAME)));
-        arrayList.add(cursor.getString(cursor.getColumnIndex(AIRPORT_COUNTRY)));
-        if(cursor.getString(cursor.getColumnIndex(AIRPORT_CITY)) != null){
-            arrayList.add(cursor.getString(cursor.getColumnIndex(AIRPORT_CITY)));
+        if(cursor.moveToFirst()) {
+            arrayList.add(cursor.getString(cursor.getColumnIndex(AIRPORT_NAME)));
+            arrayList.add(cursor.getString(cursor.getColumnIndex(AIRPORT_COUNTRY)));
+            if (cursor.getString(cursor.getColumnIndex(AIRPORT_CITY)) != null) {
+                arrayList.add(cursor.getString(cursor.getColumnIndex(AIRPORT_CITY)));
+            }
         }
         db.close();
         return arrayList;
