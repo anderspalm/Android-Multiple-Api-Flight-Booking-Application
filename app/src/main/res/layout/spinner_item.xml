@@ -2,11 +2,10 @@
 <TextView
     android:text="item"
     android:padding="10dp"
-    android:id="@+id/airport_spinner_item"
+    android:layout_margin="20dp"
+    android:id="@+id/spinner_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:layout_height="wrap_content"
     android:layout_weight="50"
     android:gravity="center"
-    android:paddingLeft="40dp"
     xmlns:android="http://schemas.android.com/apk/res/android" />

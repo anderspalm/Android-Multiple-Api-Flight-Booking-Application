@@ -11,16 +11,17 @@ public class MasterListSingleton {
     public InitialValuesObj mInitialValuesObj;
     public List<BookingObj> mBookingObject;
     public List<ImageGalleryObj> mImageGalleryObjs;
+    private boolean galleryIsNew;
 
     public List<ImageGalleryObj> getmImageGalleryObjs() {
         return mImageGalleryObjs;
     }
 
-    public void setmImageGalleryObjs(ImageGalleryObj imageGalleryObj) {
-        if(mImageGalleryObjs == null){
-            mImageGalleryObjs = new ArrayList<>();
-        }
-        mImageGalleryObjs.add(imageGalleryObj);
+    public void addGalleryObjs(ImageGalleryObj imageGalleryObj) {
+            if(mImageGalleryObjs == null) {
+                mImageGalleryObjs = new ArrayList<>();
+            }
+            mImageGalleryObjs.add(imageGalleryObj);
     }
 
     public static MasterListSingleton INSTANCE;
@@ -41,6 +42,15 @@ public class MasterListSingleton {
             mBookingObject = new ArrayList<>();
         }
         mBookingObject.add(bookingObj);
+    }
+
+    public void clearGalleryPhotos() {
+        if(mImageGalleryObjs == null){
+            mImageGalleryObjs = new ArrayList<>();
+        }
+        if(mImageGalleryObjs != null){
+            mImageGalleryObjs.clear();
+        }
     }
 
     public void clearBookingObjects(){

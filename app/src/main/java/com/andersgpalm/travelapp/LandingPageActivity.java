@@ -1,35 +1,28 @@
 package com.andersgpalm.travelapp;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class LandingPageActivity extends AppCompatActivity {
 
     Context mContext;
     LinearLayout pageLayout;
-    public String mInboundDate;
-    public String mOutboundDate;
-    public String mOutboundAirport;
+    public String mInboundDate, mOutboundDate, mOutboundAirport;
     public double mMaxPrice;
     private static final String TAG = "LandingPageActivity";
     Button mToSecondActivity, mInDate, mOutDate;
@@ -42,11 +35,14 @@ public class LandingPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.first_screen);
+        setContentView(R.layout.landing);
         mContext = LandingPageActivity.this;
 
-//        bottomBar(savedInstanceState, LandingPageActivity.this);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.nav_bar);
+//        toolbar.setTitle(null);
+//        setSupportActionBar(toolbar);
 
+//        bottomBar(savedInstanceState, LandingPageActivity.this);
 
         pageLayout = (LinearLayout) findViewById(R.id.landing_page);
 
@@ -79,14 +75,14 @@ public class LandingPageActivity extends AppCompatActivity {
                 int outMonth = outDatepicker.getMonth();
                 int tempMonth2 = outMonth + 1;
                 outAdjMonth = String.valueOf(tempMonth2);
-                if (tempMonth < 10) {
-                    outAdjMonth = "0" + tempMonth;
+                if (tempMonth2 < 10) {
+                    outAdjMonth = "0" + tempMonth2;
                 }
 
                 int outDay = outDatepicker.getDayOfMonth();
-                outAdjDay = String.valueOf(inDay);
-                if (inDay < 10) {
-                    outAdjDay = "0" + inDay;
+                outAdjDay = String.valueOf(outDay);
+                if (outDay < 10) {
+                    outAdjDay = "0" + outDay;
                 }
                 int outYear = outDatepicker.getYear();
                 mOutboundDate = outYear + "-" + outAdjMonth + "-" + outAdjDay;
@@ -108,7 +104,7 @@ public class LandingPageActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                showDialog(date_ID_IN);
                 inDatepicker.setVisibility(View.VISIBLE);
-                Log.i(TAG, "onClick: " + inDatepicker.getYear() + "-" + inDatepicker.getMonth() + "-" + inDatepicker.getDayOfMonth());
+                Log.i(TAG, "onClick: inList" + inDatepicker.getYear() + "-" + inDatepicker.getMonth() + "-" + inDatepicker.getDayOfMonth());
             }
         });
 
@@ -117,28 +113,24 @@ public class LandingPageActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                showDialog(date_ID_OUT);
                 outDatepicker.setVisibility(View.VISIBLE);
+                Log.i(TAG, "onClick: outList" + outDatepicker.getYear() + "-" + outDatepicker.getMonth() + "-" + outDatepicker.getDayOfMonth());
             }
         });
 
-        final Spinner spinner = (Spinner) findViewById(R.id.airport_spinner);
-        final ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_item, R.id.airport_spinner_item, DBHelper.getInstance(this).getAllAirportCodes());
-        spinner.setAdapter(adapter);
-        spinner.setBackgroundColor(View.INVISIBLE);
-
+        final Spinner airportSpinner = (Spinner) findViewById(R.id.airport_spinner);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,
+                R.id.spinner_item, DBHelper.getInstance(this).getAllAirportCodes());
+        airportSpinner.setAdapter(adapter);
+        airportSpinner.setBackgroundColor(View.INVISIBLE);
         ArrayList<String> priceArray = new ArrayList<>();
         priceArray.add("1000");
         priceArray.add("1500");
         priceArray.add("2500");
         priceArray.add("More");
-
-        final Spinner spinner2 = (Spinner) findViewById(R.id.price_spinner);
-        final ArrayAdapter<String> adapter2 = new ArrayAdapter(this, R.layout.spinner_item, R.id.airport_spinner_item, priceArray);
-        spinner2.setAdapter(adapter2);
-        spinner2.setBackgroundColor(View.INVISIBLE);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        airportSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mOutboundAirport = spinner.getSelectedItem().toString();
+                mOutboundAirport = airportSpinner.getSelectedItem().toString();
                 Log.i(TAG, "onItemClick: destination airport: " + mOutboundAirport);
             }
 
@@ -148,7 +140,13 @@ public class LandingPageActivity extends AppCompatActivity {
             }
         });
 
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        final Spinner priceSpinner = (Spinner) findViewById(R.id.price_spinner);
+        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, R.layout.spinner_item,
+                R.id.spinner_item, priceArray);
+        priceSpinner.setAdapter(adapter2);
+        priceSpinner.setBackgroundColor(View.INVISIBLE);
+        priceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
@@ -166,10 +164,8 @@ public class LandingPageActivity extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
         mToSecondActivity = (Button) findViewById(R.id.toSecondActivity);
@@ -189,7 +185,8 @@ public class LandingPageActivity extends AppCompatActivity {
                     Intent intent = new Intent(LandingPageActivity.this, MainEventPageActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(LandingPageActivity.this, " Please Choose a Destination ", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LandingPageActivity.this, " Please Choose Your Dates ", Toast.LENGTH_SHORT).show();
+                   Snackbar.make(view,"Please Choose Your Dates",Snackbar.LENGTH_SHORT).setActionTextColor(Color.RED).setAction("Action",null).show();
                 }
             }
         });
@@ -251,31 +248,31 @@ public class LandingPageActivity extends AppCompatActivity {
 //            Log.i(TAG, "onDateSet: " + year + "-" + adjustedMonth + "-" + day);
 //        }
 //    };
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.bottom_menu_items, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.booking_page:
-                Intent intent = new Intent(mContext, AgentsObjRVActivity.class);
-                mContext.startActivity(intent);
-                break;
-            case R.id.information_page:
-                Intent intent2 = new Intent(mContext, MainEventPageActivity.class);
-                mContext.startActivity(intent2);
-                break;
-            case R.id.more_photos:
-                Intent intent3 = new Intent(mContext, PhotoGalleryRVActivity.class);
-                mContext.startActivity(intent3);
-            default:
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.bottom_menu_items, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.information_page:
+//                Intent intent2 = new Intent(mContext, MainEventPageActivity.class);
+//                mContext.startActivity(intent2);
+//                return true;
+//            case R.id.booking_page:
+//                Intent intent = new Intent(mContext, AgentsObjRVActivity.class);
+//                mContext.startActivity(intent);
+//                return true;
+//            case R.id.more_photos:
+//                Intent intent3 = new Intent(mContext, PhotoGalleryRVActivity.class);
+//                mContext.startActivity(intent3);
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
 }
 

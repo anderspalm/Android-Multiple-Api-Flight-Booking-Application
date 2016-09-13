@@ -23,18 +23,43 @@ public class ItineraryClassGson {
 
             private BookingDetailsClass BookingDetailsLink;
             private List<PricingObjClass> PricingOptions;
+            private String OutboundLegId;
+            private String InboundLegId;
 //            private FlightReturnClass InboundLegId;
 
-            public BookingDetailsClass getBookingDetailsLink() {return BookingDetailsLink;}
+        public String getOutboundLegId() {
+            return OutboundLegId;
+        }
+
+        public String getInboundLegId() {
+            return InboundLegId;
+        }
+
+        public BookingDetailsClass getBookingDetailsLink() {return BookingDetailsLink;}
 //            public FlightReturnClass getInboundLegId() {return InboundLegId;}
             public List<PricingObjClass> getPricingOptions() {
                 return PricingOptions;
             }
 
         }
+            public class OutBoundLegId {
+                public String Id;
+
+                public String getId() {
+                    return Id;
+                }
+            }
+
+            public class InBoundLegId {
+                public String Id;
+
+                public String getId() {
+                    return Id;
+                }
+            }
+
 
 //      Pricing
-
             public class PricingObjClass {
                 public String Price, DeeplinkUrl;
 

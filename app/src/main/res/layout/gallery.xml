@@ -2,13 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    android:background="@color/bb_darkBackgroundColor">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:alpha="0.9">
+    </android.support.v7.widget.Toolbar>
 
     <TextView
-        android:text="More Images"
+        android:text="Search The Area"
         android:gravity="center"
         android:letterSpacing=".1"
         android:textSize="20dp"
+        android:textColor="@color/white"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -16,7 +25,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/Photo_galleryRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
 
     <ImageView

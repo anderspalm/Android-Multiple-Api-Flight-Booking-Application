@@ -24,5 +24,5 @@ public abstract class BottomBarAbstractClass extends AppCompatActivity {
 
     }
 
-    public abstract void bottomBar(Bundle SavedState, Context context);
+    public abstract void bottomBar(Bundle SavedState);
 }

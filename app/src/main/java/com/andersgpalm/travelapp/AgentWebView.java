@@ -3,9 +3,10 @@ package com.andersgpalm.travelapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 
-public class AgentWebView extends BottomBarAbstractClass {
+public class AgentWebView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +20,4 @@ public class AgentWebView extends BottomBarAbstractClass {
 
     }
 
-    @Override
-    public void bottomBar(Bundle SavedState, Context context) {
-
-    }
 }

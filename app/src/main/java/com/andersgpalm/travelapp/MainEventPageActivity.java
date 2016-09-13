@@ -1,27 +1,20 @@
 package com.andersgpalm.travelapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -37,9 +30,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnMenuTabSelectedListener;
-import com.roughike.bottombar.OnTabSelectedListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -48,7 +38,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -65,8 +54,8 @@ import java.util.Map;
  */
 public class MainEventPageActivity extends AppCompatActivity {
 
-    ImageView mApiButton, mFilterImage, mFilterButton;
-    LinearLayout mFilterLayout;
+    ImageView mApiButton, mFilterImage, mFilterButton, mCity_image_one;
+    LinearLayout mFilterLayout, mFilterLContainer;
     Button mToFlightOptions, mMorePhotos;
     Context mContext;
     HttpURLConnection conn, connection2;
@@ -76,7 +65,7 @@ public class MainEventPageActivity extends AppCompatActivity {
     public String mLocale, mAdults, mMarket, mCurrency, mRegion, mUrlBooking, mPreCabinClass, mCabinClass;
     public String mDestinationLocation, mDestinationCountry, mDestAirportCode, mInboundDate;
     public String mWikiExtract, innerKey;
-    public String mOriginAirportCode, mOutboundDate;
+    public String mOriginAirportCode, mOutboundDate, mOutboundLegId, mInboundLegId;
     public String mSessionID, mBookingSession;
     public int mErrorCount, mAgentSeekBarPosition, mNoFlightCount, mWikiParCount;
     public int mWikiLastPosition;
@@ -91,9 +80,10 @@ public class MainEventPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.third_screen);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        setContentView(R.layout.home);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.nav_bar);
+        setSupportActionBar(toolbar);
+
 
         // setting defaults
         mContext = MainEventPageActivity.this;
@@ -101,9 +91,9 @@ public class MainEventPageActivity extends AppCompatActivity {
         mNoFlightCount = 0;
         mMaxPrice = 0;
         conn = null;
-        mMarket = "GB";
-        mCurrency = "GBP";
-        mLocale = "en-GB";
+        mMarket = "US";
+        mCurrency = "USD";
+        mLocale = "en-US";
         mAdults = "1";
         mPreCabinClass = "Economy";
 
@@ -116,24 +106,38 @@ public class MainEventPageActivity extends AppCompatActivity {
         // getting answers from users for default filters
         InitialValuesObj initialValuesObj = MasterListSingleton.getInstance().getmInitialValuesObj();
         if (MasterListSingleton.getInstance().getmInitialValuesObj() != null) {
-            mOriginAirportCode = initialValuesObj.getOutboundAirport();
-
+            String temp = initialValuesObj.getOutboundAirport();
+            mOriginAirportCode = temp + "-sky";
             mOutboundDate = "2016-12-20";
             mInboundDate = "2016-12-29";
             mOutboundDate = initialValuesObj.getOutboundDate();
             mInboundDate = initialValuesObj.getInboundDate();
+            mMaxPrice = initialValuesObj.getPrice();
             Log.i(TAG, "onCreate: o" + mOutboundDate);
             Log.i(TAG, "onCreate: i" + mInboundDate);
         }
         mRegion = "Anywhere";
-        mMaxPrice = initialValuesObj.getPrice();
+
+        mCity_image_one = (ImageView) findViewById(R.id.city_img_1);
+
+//                Picasso.with(MainEventPageActivity.this)
+//                        .load("http://i.telegraph.co.uk/multimedia/archive/01768/BA_1768204b.jpg").placeholder(R.drawable.arrival).resize(mCity_image_one.getWidth(), mCity_image_one.getHeight())
+//                        .centerCrop()
+//                        .into(mCity_image_one, new Callback() {
+//                            @Override
+//                            public void onSuccess() {
+//                                Log.i(TAG, "onSuccess: success 1");
+//                            }
+//
+//                            @Override
+//                            public void onError() {
+//
+//                            }
+//                        });
 
         mPriceBar = (SeekBar) findViewById(R.id.price_seek_bar);
 
-//        bottomBar(savedInstanceState, MainEventPageActivity.this);
-
         // setting expandable filters functionality
-        mFilterImage = (ImageView) findViewById(R.id.filter_image);
         mFilterButton = (ImageView) findViewById(R.id.filter_button);
         mFilterLayout = (LinearLayout) findViewById(R.id.filters_layout);
         mFilterBoolean = false;
@@ -142,13 +146,9 @@ public class MainEventPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (mFilterBoolean) {
                     mFilterLayout.setVisibility(View.GONE);
-                    FrameLayout.LayoutParams lLP = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400);
-                    mFilterImage.setLayoutParams(lLP);
                     mFilterBoolean = false;
                 } else {
                     mFilterLayout.setVisibility(View.VISIBLE);
-                    FrameLayout.LayoutParams lLP = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    mFilterImage.setLayoutParams(lLP);
                     mFilterBoolean = true;
                 }
             }
@@ -162,7 +162,7 @@ public class MainEventPageActivity extends AppCompatActivity {
         cabinClassArray.add("First");
         mCabinCount = 0;
         final Spinner cabinClass = (Spinner) findViewById(R.id.cabin_class_spinner);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, R.id.airport_spinner_item, cabinClassArray);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, R.id.spinner_item, cabinClassArray);
         cabinClass.setAdapter(adapter);
         cabinClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -182,7 +182,7 @@ public class MainEventPageActivity extends AppCompatActivity {
         // airport spinner filter button
         mAirportCount = 0;
         final Spinner airportSpinner = (Spinner) findViewById(R.id.airport_spinner);
-        final ArrayAdapter<String> airportAdapter = new ArrayAdapter(this, R.layout.spinner_item, R.id.airport_spinner_item, DBHelper.getInstance(this).getAllAirportCodes());
+        final ArrayAdapter<String> airportAdapter = new ArrayAdapter(this, R.layout.spinner_item, R.id.spinner_item, DBHelper.getInstance(this).getAllAirportCodes());
         airportSpinner.setAdapter(airportAdapter);
         airportSpinner.setBackgroundColor(View.INVISIBLE);
         airportSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -212,7 +212,7 @@ public class MainEventPageActivity extends AppCompatActivity {
         regionArray.add("SouthAmerica");
         regionArray.add("SouthEastAsia");
         final Spinner regionSpinner = (Spinner) findViewById(R.id.region_spinner);
-        ArrayAdapter regionAdapter = new ArrayAdapter(MainEventPageActivity.this, R.layout.spinner_item, R.id.airport_spinner_item, regionArray);
+        ArrayAdapter regionAdapter = new ArrayAdapter(MainEventPageActivity.this, R.layout.spinner_item, R.id.spinner_item, regionArray);
         regionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -247,7 +247,7 @@ public class MainEventPageActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 textView = (TextView) findViewById(R.id.seek_bar_value);
-                textView.setText("$" + price + "/" + mPriceBar.getMax());
+                textView.setText("$" + price);
                 mMaxPrice = price;
             }
         });
@@ -260,7 +260,12 @@ public class MainEventPageActivity extends AppCompatActivity {
                 @Override
                 public boolean onLongClick(View view) {
                     if (!mOriginEditText.getText().toString().equals("") || mOriginEditText.getText() == null) {
-                        mOriginAirportCode = mOriginEditText.getText().toString();
+                        String temp =  mOriginEditText.getText().toString().toUpperCase();
+                        mOriginAirportCode = temp + "-sky";
+                        mOriginEditText.setSelected(false);
+//                        getWindow().setSoftInputMode(
+//                                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+//                        );
                     } else {
                         destinationRandomizer();
                         MasterListSingleton.getInstance().clearBookingObjects();
@@ -303,7 +308,7 @@ public class MainEventPageActivity extends AppCompatActivity {
         mMorePhotos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,PhotoGalleryRVActivity.class);
+                Intent intent = new Intent(mContext, PhotoGalleryRVActivity.class);
                 mContext.startActivity(intent);
             }
         });
@@ -318,6 +323,7 @@ public class MainEventPageActivity extends AppCompatActivity {
     public class SessionCreator extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... voids) {
+            Log.i(TAG, "onResponse: jnum1 ");
             String request = "http://partners.api.skyscanner.net/apiservices/pricing/v1.0/";
             URL url = null;
             try {
@@ -388,29 +394,43 @@ public class MainEventPageActivity extends AppCompatActivity {
 
 
     public void sessionPolling() {
-
+        Log.i(TAG, "onResponse: jnum2 ");
         Log.i(TAG, "doInBackground: inside doInBackground with key: " + mSessionID + "?" + mApiKey);
         Log.i(TAG, "doInBackground: check key above follows this key: http://partners.api.skyscanner.net/apiservices/pricing/v1.0/{sessionKey}?apiKey={apiKey}");
-        RequestQueue queue = Volley.newRequestQueue(mContext);
+        final RequestQueue queue = Volley.newRequestQueue(mContext);
+        if(mSessionID == null){
+            destinationRandomizer();
+            SessionCreator sessionCreator = new SessionCreator();
+            sessionCreator.execute();
+            return;
+        }
+
         JsonObjectRequest objectReq = new JsonObjectRequest(Request.Method.GET, mSessionID + "?" + mApiKey, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
 
-                Log.i(TAG, "onResponse: " + response);
+//                Log.i(TAG, "onResponse: step 2 response 1: " + response);
                 Gson gson = new Gson();
                 ItineraryClassGson itinerary = gson.fromJson(response.toString(), ItineraryClassGson.class);
+
+                if (itinerary.getItineraries().size() < 1) {
+                    Log.i(TAG, "onResponse: ");
+                    queue.cancelAll(this);
+                } else {
+                    mOutboundLegId = itinerary.getItineraries().get(0).getOutboundLegId();
+                    mInboundLegId = itinerary.getItineraries().get(0).getInboundLegId();
+                }
 
                 if (itinerary.getItineraries().isEmpty()) {
                     destinationRandomizer();
                     SessionCreator sessionCreator = new SessionCreator();
                     sessionCreator.execute();
-
                 } else {
                     mUrlBooking = itinerary.getItineraries().get(0).getBookingDetailsLink().getUri();
+                    BookingSessionCreator bSC = new BookingSessionCreator();
+                    bSC.execute();
                 }
-                BookingSessionCreator bSC = new BookingSessionCreator();
-                bSC.execute();
 
             }
         }, new Response.ErrorListener() {
@@ -434,7 +454,7 @@ public class MainEventPageActivity extends AppCompatActivity {
     public class BookingSessionCreator extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... voids) {
-
+            Log.i(TAG, "onResponse: jnum3 ");
             if (mUrlBooking != null) {
 //                URL url = null;
                 String request = "http://partners.api.skyscanner.net" + mUrlBooking + "?" + mApiKey;
@@ -459,9 +479,12 @@ public class MainEventPageActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                Log.i(TAG, "doInBackground: " + mOutboundLegId);
+                Log.i(TAG, "doInBackground: " + mInboundLegId);
+
                 String urlParameters = mApiKey +
-                        "&outboundlegid=" + mOutboundDate +
-                        "&inboundlegid=" + mInboundDate;
+                        "&outboundlegid=" + mOutboundLegId +
+                        "&inboundlegid=" + mInboundLegId;
 
                 DataOutputStream outputStream = null;
                 try {
@@ -481,10 +504,18 @@ public class MainEventPageActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.i(TAG, "onPostExecute: The session ID: " + s);
-            bookingPollingSession();
-            if (connection2 != null) {
-                connection2.disconnect();
+            if (mBookingSession == null) {
+                destinationRandomizer();
+                MasterListSingleton.getInstance().clearBookingObjects();
+                SessionCreator sessionCreator = new SessionCreator();
+                sessionCreator.execute();
+                cancel(true);
+            } else {
+                Log.i(TAG, "onPostExecute: The session ID: " + s);
+                bookingPollingSession();
+                if (connection2 != null) {
+                    connection2.disconnect();
+                }
             }
         }
     }
@@ -512,22 +543,26 @@ public class MainEventPageActivity extends AppCompatActivity {
                 if (itinerary.getItineraries().isEmpty()) {
 
                 } else {
-                    mNoFlightCount = 0;
+
                     mDestinationLocation = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mDestAirportCode).get(0);
                     mDestinationCountry = DBHelper.getInstance(MainEventPageActivity.this).getCityAndCountry(mDestAirportCode).get(1);
 
                     for (int j = 0; j < itinerary.getItineraries().get(0).getPricingOptions().size(); j++) {
+                        Log.i(TAG, "onResponse: jnum4 " + j);
                         double num = Double.parseDouble(itinerary.getItineraries().get(0).getPricingOptions().get(0).getPrice());
                         if (num > mMaxPrice) {
-                            if (mNoFlightCount < (itinerary.getItineraries().get(0).getPricingOptions().size()) &&  mNoFlightCount < 5) {
+                            if (mNoFlightCount < (itinerary.getItineraries().get(0).getPricingOptions().size()) && mNoFlightCount < 5) {
                                 destinationRandomizer();
                                 MasterListSingleton.getInstance().clearBookingObjects();
                                 SessionCreator sessionCreator = new SessionCreator();
                                 sessionCreator.execute();
                                 mNoFlightCount = mNoFlightCount + 1;
+                                Log.i(TAG, "onResponse: mNoFlightCount " + mNoFlightCount);
                             } else {
                                 Toast.makeText(MainEventPageActivity.this, " Sorry there are no flights for those filters", Toast.LENGTH_LONG).show();
                                 mNoFlightCount = 0;
+                                Log.i(TAG, "onResponse: mNoFlightCount " + mNoFlightCount);
+                                Log.i(TAG, "onResponse: quitting flight search");
                                 queue.cancelAll(this);
                             }
                         } else {
@@ -576,7 +611,7 @@ public class MainEventPageActivity extends AppCompatActivity {
                                         Log.i(TAG, "onResponse: flight outbound:" + mOutboundDate + ", Return: " + mInboundDate);
                                         Log.i(TAG, "onResponse: flight origin:" + mDestinationCountry + ", Cabin: " + mCabinClass);
                                         WikipediaInformation();
-                                        flickrImages(mDestAirportCode,mRegion);
+                                        flickrImages(mDestAirportCode, mRegion);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -621,13 +656,10 @@ public class MainEventPageActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.i(TAG, "onErrorResponse: api call stopped working again second poll");
-                if (mErrorCount >= 5) {
-                    mErrorCount = 0;
-                } else {
-                    bookingPollingSession();
-                    mErrorCount = mErrorCount + 1;
-                    Log.i(TAG, "doInBackground: location booking post execute checkpoint " + mDestinationLocation);
-                }
+                bookingPollingSession();
+                mErrorCount = mErrorCount + 1;
+                Log.i(TAG, "doInBackground: location booking post execute checkpoint " + mDestinationLocation);
+
             }
         });
         queue.add(objectReq);
@@ -644,30 +676,30 @@ public class MainEventPageActivity extends AppCompatActivity {
         mDestAirportCode = null;
         if (mRegion.contains("South") && mRegion.contains("America")) {
             Log.i(TAG, "onClick: " + mRegion);
-            String origin = DBHelper.getInstance(MainEventPageActivity.this).getRandSAmericaAirportCode();
-            Log.i(TAG, "onClick: destination " + origin);
-            mDestAirportCode = origin;
+            String dest = DBHelper.getInstance(MainEventPageActivity.this).getRandSAmericaAirportCode();
+            Log.i(TAG, "onClick: destination " + dest);
+            mDestAirportCode = dest + "-sky";
         } else if (mRegion.contains("South") && mRegion.contains("Asia")) {
             Log.i(TAG, "onClick: " + mRegion);
-            String origin = DBHelper.getInstance(MainEventPageActivity.this).getRandSAsiaAirportCode();
-            Log.i(TAG, "onClick: destination " + origin);
-            mDestAirportCode = origin;
+            String dest = DBHelper.getInstance(MainEventPageActivity.this).getRandSAsiaAirportCode();
+            Log.i(TAG, "onClick: destination " + dest);
+            mDestAirportCode = dest + "-sky";
         } else if (mRegion.contains("North") && mRegion.contains("America")) {
             Log.i(TAG, "onClick: " + mRegion);
-            String origin = DBHelper.getInstance(MainEventPageActivity.this).getRandNAmericaAirportCode();
-            Log.i(TAG, "onClick: destination " + origin);
-            mDestAirportCode = origin;
+            String dest = DBHelper.getInstance(MainEventPageActivity.this).getRandNAmericaAirportCode();
+            Log.i(TAG, "onClick: destination " + dest);
+            mDestAirportCode = dest + "-sky";
         } else if (mRegion.contains("Europe")) {
             Log.i(TAG, "onClick: " + mRegion);
-            String origin = DBHelper.getInstance(MainEventPageActivity.this).getRandEUAirportCode();
-            Log.i(TAG, "onClick: destination " + origin);
-            mDestAirportCode = origin;
+            String dest = DBHelper.getInstance(MainEventPageActivity.this).getRandEUAirportCode();
+            Log.i(TAG, "onClick: destination " + dest);
+            mDestAirportCode = dest + "-sky";
         } else if (mRegion.contains("Anywhere") || mRegion.isEmpty()) {
-            String origin = DBHelper.getInstance(MainEventPageActivity.this).getRandomAirportCode();
-            mDestAirportCode = origin;
+            String dest = DBHelper.getInstance(MainEventPageActivity.this).getRandomAirportCode();
+            mDestAirportCode = dest + "-sky";
         } else {
-            String origin = DBHelper.getInstance(MainEventPageActivity.this).getRandomAirportCode();
-            mDestAirportCode = origin;
+            String dest = DBHelper.getInstance(MainEventPageActivity.this).getRandomAirportCode();
+            mDestAirportCode = dest + "-sky";
         }
     }
 
@@ -736,7 +768,7 @@ public class MainEventPageActivity extends AppCompatActivity {
                             if (i == 0) {
                                 lastValue = String.valueOf(mWikiExtract.charAt(i));
                             } else {
-                                Log.i(TAG, "onResponse: wiki else");
+//                                Log.i(TAG, "onResponse: wiki else");
                                 ;
                                 currentValue = String.valueOf(mWikiExtract.charAt(i));
                                 if (lastValue.equals(".") && (currentValue.equals(" "))) {
@@ -754,7 +786,7 @@ public class MainEventPageActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        Log.i(TAG, "onResponse: last value:  " + lastValue + currentValue);
+//                        Log.i(TAG, "onResponse: last value:  " + lastValue + currentValue);
                         lastValue = currentValue;
                     }
                 } catch (JSONException e) {
@@ -822,7 +854,6 @@ public class MainEventPageActivity extends AppCompatActivity {
                                 Log.i(TAG, "onResponse: farm " + i + ": " + farm);
                                 Log.i(TAG, "onResponse: server " + i + ": " + server);
 
-                                ImageView city_image_one = (ImageView) findViewById(R.id.city_img_1);
                                 ImageView city_image_two = (ImageView) findViewById(R.id.city_img_2);
                                 ImageView city_image_three = (ImageView) findViewById(R.id.city_img_3);
 
@@ -835,9 +866,9 @@ public class MainEventPageActivity extends AppCompatActivity {
                                                         server + "/" +
                                                         id + "_" +
                                                         secret + ".jpg")
-                                                .resize(city_image_one.getWidth(), city_image_one.getHeight())
+                                                .resize(mCity_image_one.getWidth(), mCity_image_one.getHeight())
                                                 .centerCrop()
-                                                .into(city_image_one, new Callback() {
+                                                .into(mCity_image_one, new Callback() {
                                                     @Override
                                                     public void onSuccess() {
                                                         Log.i(TAG, "onSuccess: success 1");
@@ -923,10 +954,10 @@ public class MainEventPageActivity extends AppCompatActivity {
                                 int farm = items.getInt("farm");
                                 String server = items.getString("server");
                                 String title = items.getString("title");
+                                MasterListSingleton.getInstance().clearGalleryPhotos();
                                 ImageGalleryObj iGO = new ImageGalleryObj(id, secret, server, title, farm);
-                                MasterListSingleton.getInstance().setmImageGalleryObjs(iGO);
+                                MasterListSingleton.getInstance().addGalleryObjs(iGO);
                             }
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -944,7 +975,7 @@ public class MainEventPageActivity extends AppCompatActivity {
 
         JsonObjectRequest job2 = new JsonObjectRequest(Request.Method.GET,
                 "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=" +
-                        ApiClass.flickrApi + "&text=" + region + "&format=json&nojsoncallback=1",
+                        ApiClass.flickrApi + "&text=" + region +  "&tags=" + region + "&format=json&nojsoncallback=1",
 //                "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=9cb129c9deed6c950fbd3e3e54bb462b&text=Trondheim&format=json&nojsoncallback=1",
 //                "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=89a4669c0553d3d254b50803bff8f692&tags=landmark&text=London&format=json&nojsoncallback=1"
 
@@ -966,7 +997,7 @@ public class MainEventPageActivity extends AppCompatActivity {
                             int farm = items.getInt("farm");
                             String server = items.getString("server");
 
-                            ImageView city_photo = (ImageView) findViewById(R.id.city_photo);
+                            ImageView city_photo = (ImageView) findViewById(R.id.region_photo);
 
                             Picasso.with(MainEventPageActivity.this)
                                     .load("https://farm" +
@@ -975,8 +1006,6 @@ public class MainEventPageActivity extends AppCompatActivity {
                                             server + "/" +
                                             id + "_" +
                                             secret + ".jpg")
-                                    .resize(city_photo.getWidth(), city_photo.getHeight())
-                                    .centerCrop()
                                     .into(city_photo, new Callback() {
                                         @Override
                                         public void onSuccess() {
@@ -1012,7 +1041,7 @@ public class MainEventPageActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-
+        mAgentSeekBar.setProgress(0);
         if (conn != null) {
             conn.disconnect();
         }
@@ -1023,18 +1052,12 @@ public class MainEventPageActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    @Override
-    protected void onDestroy() {
-        mAgentSeekBar.setProgress(0);
-        super.onDestroy();
-    }
 
     // *********************************************************************
 
     // Below: Setting Bottom Bar
 
     // *********************************************************************
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bottom_menu_items, menu);
@@ -1044,19 +1067,17 @@ public class MainEventPageActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.information_page:
+                return true;
             case R.id.booking_page:
                 Intent intent = new Intent(mContext, AgentsObjRVActivity.class);
                 mContext.startActivity(intent);
-                break;
-            case R.id.information_page:
-                Intent intent2 = new Intent(mContext, MainEventPageActivity.class);
-                mContext.startActivity(intent2);
-                break;
-            case R.id.more_photos:
+                return true;
+            case R.id.more_photos_option:
                 Intent intent3 = new Intent(mContext, PhotoGalleryRVActivity.class);
                 mContext.startActivity(intent3);
             default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public int mAirportLength;
     private static final String TAG = "DBHelper";
 
-    public static final Integer DATABASE_VERSION = 21;
+    public static final Integer DATABASE_VERSION = 22;
 
     public static final String IATA_TABLE = "iata_table";
     public static final String AIRLINE_NAME = "airline_name";
@@ -323,12 +323,14 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<String> getCityAndCountry(String code){
+        Log.i(TAG, "getCityAndCountry: " + code);
+        String minusSkyCode = code.substring(0,code.length() - 5);
         ArrayList arrayList = new ArrayList();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(
                 "SELECT *" +
                 " FROM " + AIRPORT_TABLE +
-                " WHERE " + AIRPORT_CODE + " like " + "'%" +code + "%'"
+                " WHERE " + AIRPORT_CODE + " like " + "'%" +minusSkyCode + "%'"
                 ,null);
         cursor.moveToFirst();
         arrayList.add(cursor.getString(cursor.getColumnIndex(AIRPORT_NAME)));

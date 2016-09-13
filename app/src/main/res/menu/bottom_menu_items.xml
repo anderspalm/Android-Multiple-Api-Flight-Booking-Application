@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/information_page"
-        android:icon="@drawable/ic_navigate_before_black_24dp"
-        android:title="Home">
+        android:icon="@drawable/home_image"
+        android:title="Home"
+        app:showAsAction="always"
+        android:orderInCategory="1">
     </item>
     <item
-        android:id="@+id/more_photos"
-        android:icon="@drawable/ic_navigate_before_black_24dp"
-        android:title="photos">
+        android:id="@+id/more_photos_option"
+        android:icon="@drawable/gallery_image"
+        android:title="Gallery"
+        app:showAsAction="always"
+        android:orderInCategory="2">
     </item>
     <item
         android:id="@+id/booking_page"
-        android:icon="@drawable/ic_navigate_before_black_24dp"
-        android:title="Options">
+        android:icon="@drawable/booking_agent"
+        android:title="Agents"
+        app:showAsAction="always"
+        android:orderInCategory="3">
     </item>
 
 

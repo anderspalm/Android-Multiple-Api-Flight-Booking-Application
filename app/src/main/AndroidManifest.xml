@@ -29,7 +29,11 @@
             android:name=".AgentsObjRVActivity"
             android:label="@string/title_activity_fourth_screen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".AgentWebView"></activity>
+        <activity android:name=".AgentWebView" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

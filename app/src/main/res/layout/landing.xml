@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/landing_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <DatePicker
+        android:id="@+id/outDatePicker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/white"
+        android:visibility="gone">
+    </DatePicker>
+
+    <DatePicker
+        android:id="@+id/inDatePicker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/white"
+        android:visibility="gone">
+    </DatePicker>
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/nav_bar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:alpha="0.9">-->
+    <!--</android.support.v7.widget.Toolbar>-->
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha=".8"
+            android:scaleType="centerCrop"
+            android:src="@drawable/hyde_park" />
+
+        <LinearLayout
+            android:id="@+id/spinner_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0px"
+                android:layout_marginTop="15dp"
+                android:layout_weight=".25">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/spinner_border_blue" />
+
+                <Button
+                    android:id="@+id/out_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="#00000000"
+                    android:text="OUTBOUND DATE" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0px"
+                android:layout_marginTop="15dp"
+                android:layout_weight=".25">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/spinner_border_blue" />
+
+                <Button
+                    android:id="@+id/in_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="#00000000"
+                    android:text="RETURN DATE" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0px"
+                android:layout_marginTop="15dp"
+                android:layout_weight=".2"
+                android:alpha=".95">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/spinner_border_green" />
+
+                <Spinner
+                    android:id="@+id/price_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fadingEdge="vertical"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="5dp"
+                    android:background="#00000000"
+                    android:spinnerMode="dialog" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0px"
+                android:layout_marginTop="15dp"
+                android:layout_weight=".2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/spinner_border_green" />
+
+                <Spinner
+                    android:id="@+id/airport_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="5dp"
+                    android:background="#00000000"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/toSecondActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinner_buttons"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/round_button_green"
+                android:elevation="20dp"
+                android:gravity="center"
+                android:text="Fly"
+                android:textColor="@color/white"
+                android:textSize="40sp" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

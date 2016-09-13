@@ -2,6 +2,7 @@ package com.andersgpalm.travelapp;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,10 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<PhotosViewHo
     @Override
     public void onBindViewHolder(final PhotosViewHolder holder, final int position) {
 
-
         holder.mPhotoTitle.setText(mPhotoSet.get(position).getTitle());
+
+
+
 
         Picasso.with(mContext)
                 .load("https://farm" +
@@ -47,6 +50,12 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<PhotosViewHo
                         mPhotoSet.get(position).getSecret() + ".jpg")
                 .fit()
                 .into(holder.mPhoto);
+
+        Log.i(TAG, "onBindViewHolder: " + mPhotoSet.get(position).getFarm() +
+                ".staticflickr.com/" +
+                mPhotoSet.get(position).getServer() + "/" +
+                mPhotoSet.get(position).getId() + "_" +
+                mPhotoSet.get(position).getSecret() + ".jpg");
 
         holder.mPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
